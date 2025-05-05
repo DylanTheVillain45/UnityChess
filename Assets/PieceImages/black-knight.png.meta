@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      black-knight_0: -5705587971989704657
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

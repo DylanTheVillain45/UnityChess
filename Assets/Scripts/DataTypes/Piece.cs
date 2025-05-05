@@ -10,4 +10,11 @@ public class Piece {
         this.y = y;
         this.x = x;
     }
+
+    public Piece(Piece original) {
+        this.type = original.type;
+        this.color = original.color;
+        this.x = original.x;
+        this.y = original.y;
+    }
 }

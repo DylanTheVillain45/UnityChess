@@ -6,6 +6,7 @@ public class Chess {
     public PieceColor GameColor;
     public List<(Move, Move)> PastMoves = new List<(Move, Move)>();
     public bool isAi = false;
+    public bool isLateGame = false;
 
     public void GetMoves() {
         MovesList = MoveGenerator.GetValidMoves(this, GameColor);
@@ -37,4 +38,28 @@ public class Chess {
     }
 
     public void ResetGame() {}
+
+    public Chess DeepCopy() {
+        Chess copy = new Chess();
+
+        copy.board = new Piece[8, 8];
+
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                Piece originalPiece = this.board[y, x];
+                if (originalPiece != null) {
+                    copy.board[y, x] = new Piece(originalPiece);
+                }
+            }
+        }
+
+        copy.PastMoves = new List<(Move, Move)>(this.PastMoves);
+
+        copy.GameColor = this.GameColor;
+        copy.isAi = this.isAi;
+
+        copy.MovesList = null;
+
+        return copy;
+    }
 }

@@ -11,18 +11,20 @@ public static class MiniMax {
         PieceColor maximizingColor = aiColor;
         PieceColor minimizingColor = maximizingColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
 
-        List<Move> posMoves = MoveGenerator.GetValidMoves(chess, maximizingColor);
+        Chess chessCopy = chess.DeepCopy();
+
+        List<Move> posMoves = MoveGenerator.GetValidMoves(chessCopy, maximizingColor);
         MoveListOrdering.OrderForABPrune(posMoves);
 
 
         foreach (Move move in posMoves) {
-            chess.MakeMove(move);
+            chessCopy.MakeMove(move);
 
             int score;
             if (move.isCheckMate) {
                 score = 1000;
             } else {
-                score = Beta(chess, maximizingColor, minimizingColor, alpha, beta, 1, maxDepth);
+                score = Beta(chessCopy, maximizingColor, minimizingColor, alpha, beta, 1, maxDepth);
             }
 
             if (score > bestScore) {
@@ -31,7 +33,7 @@ public static class MiniMax {
             }
 
             alpha = Math.Max(alpha, bestScore);
-            chess.UnMakeMove(move);
+            chessCopy.UnMakeMove(move);
         }
 
         return bestMove;

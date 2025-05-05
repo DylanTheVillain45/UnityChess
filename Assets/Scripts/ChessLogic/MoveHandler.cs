@@ -8,12 +8,14 @@ public static class MoveHandler {
         PieceColor theirColor = myColor == PieceColor.White ? PieceColor.Black : PieceColor.White;
 
         foreach (Move move in moves) {
-            MoveMaker.CommitMove(chess, move);
+            if (move.capturedPiece != null && move.capturedPiece.type == Type.King) continue;
+
+            chess.MakeMove(move);
 
             bool checkFilter = Check.IsCheck(chess, myColor);
 
             if (checkFilter) {
-                MoveMaker.UnCommitMove(chess, move);
+                chess.UnMakeMove(move);
                 continue;
             }
 
@@ -31,7 +33,7 @@ public static class MoveHandler {
 
                 foreach (Move escapeMove in escapeMoves) {
 
-                    MoveMaker.CommitMove(chess, escapeMove);
+                    chess.MakeMove(escapeMove);
 
                     // maybe sort list to put king moves first?
 
@@ -39,16 +41,16 @@ public static class MoveHandler {
 
                     if (isStillCheck == false) {
                         isCheckMate = false;
-                        MoveMaker.UnCommitMove(chess, escapeMove);
+                        chess.UnMakeMove(escapeMove);
                         break;
                     }
-                    MoveMaker.UnCommitMove(chess, escapeMove);
+                    chess.UnMakeMove(escapeMove);
                 }
 
                 move.isCheckMate = isCheckMate;
             }
 
-            MoveMaker.UnCommitMove(chess, move);
+            chess.UnMakeMove(move);
         }
 
         moves.Clear();

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      white-bishop_0: 904179075512932255
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
